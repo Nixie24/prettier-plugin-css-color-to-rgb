@@ -4,6 +4,11 @@
     "main": "dist/index.js",
     "version": "0.0.1",
     "files": ["dist/index.js"],
+    "repository": {
+        "url": "https://github.com/Nixie24/prettier-plugin-css-color-to-rgb",
+        "type": "git"
+    },
+    "homepage": "https://github.com/Nixie24/prettier-plugin-css-color-to-rgb",
     "scripts": {
         "build": "esbuild src/index.ts --sourcemap --minify --outdir=dist",
         "test": "prettier --config test/.prettierrc test/test.css",
