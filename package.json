@@ -1,5 +1,6 @@
 {
-    "name": "@nix/prettier",
+    "name": "prettier-plugin-css-color-to-rgb",
+    "description": "Prettier plugin to convert CSS color names to RGB values",
     "type": "module",
     "main": "dist/index.js",
     "version": "0.0.1",
