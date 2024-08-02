@@ -3,8 +3,10 @@
     "description": "Prettier plugin to convert CSS color names to RGB values",
     "type": "module",
     "main": "dist/index.js",
-    "version": "0.0.1",
-    "files": ["dist/index.js"],
+    "version": "0.0.2",
+    "files": [
+        "dist/index.js"
+    ],
     "repository": {
         "url": "https://github.com/Nixie24/prettier-plugin-css-color-to-rgb",
         "type": "git"

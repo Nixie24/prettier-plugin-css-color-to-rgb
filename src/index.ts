@@ -10,9 +10,11 @@ function getKeyword([r, g, b, a]: [number, number, number, number]):
     | "transparent"
     | null {
     if (a === 0) return "transparent";
-    for (const [name, [r2, g2, b2]] of Object.entries(colorName)) {
-        if (r === r2 && g === g2 && b === b2) return name as keyof typeof colorName;
-    }
+    if (a === 1)
+        for (const [name, [r2, g2, b2]] of Object.entries(colorName)) {
+            if (r === r2 && g === g2 && b === b2)
+                return name as keyof typeof colorName;
+        }
     return null;
 }
 
@@ -42,7 +44,7 @@ function toRGB(source: string) {
 async function parseColor(text: string, options: ParserOptions<any>) {
     const parsed = await postcss()
         .process(text, {
-            from: undefined
+            from: undefined,
         })
         .then((result) => {
             result.root.walkDecls((decl) => {
@@ -55,8 +57,10 @@ async function parseColor(text: string, options: ParserOptions<any>) {
                                     node.sourceEndIndex
                                 );
 
-                                (node as unknown as parseValue.WordNode).value = toRGB(source);
-                                (node as unknown as parseValue.WordNode).type = "word";
+                                (node as unknown as parseValue.WordNode).value =
+                                    toRGB(source);
+                                (node as unknown as parseValue.WordNode).type =
+                                    "word";
                             } catch {}
                         } else if (node.type === "word") {
                             try {
@@ -77,7 +81,7 @@ export default {
     parsers: {
         css: {
             ...prettierPostcss.parsers.css,
-            parse: parseColor
-        }
-    }
+            parse: parseColor,
+        },
+    },
 } satisfies Plugin;
