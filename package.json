@@ -1,0 +1,28 @@
+{
+    "name": "@nix/prettier",
+    "type": "module",
+    "main": "dist/index.js",
+    "version": "0.0.1",
+    "files": ["dist/index.js"],
+    "scripts": {
+        "build": "esbuild src/index.ts --sourcemap --minify --outdir=dist",
+        "test": "prettier --config test/.prettierrc test/test.css",
+        "example": "pnpm build && pnpm test"
+    },
+    "devDependencies": {
+        "@types/color": "^3.0.6",
+        "@types/color-name": "^1.1.4",
+        "esbuild": "^0.23.0",
+        "prettier": "^3.3.3",
+        "typescript": "~5.5.4"
+    },
+    "dependencies": {
+        "color": "^4.2.3",
+        "color-name": "^2.0.0",
+        "postcss": "^8.4.40",
+        "postcss-value-parser": "^4.2.0"
+    },
+    "peerDependencies": {
+        "prettier": "3.x"
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "noEmit": true,
+        "target": "ESNext",
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "allowSyntheticDefaultImports": true,
+        "importHelpers": true,
+        "sourceMap": true,
+        "strict": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": false,
+        "isolatedModules": true,
+        "lib": ["esnext"]
+    },
+    "include": ["src"]
+}
