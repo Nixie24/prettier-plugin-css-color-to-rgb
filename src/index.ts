@@ -18,8 +18,35 @@ function getKeyword([r, g, b, a]: [number, number, number, number]):
     return null;
 }
 
+function clamp(value: number, min: number, max: number) {
+    return Math.min(Math.max(value, min), max);
+}
+
 function toRGB(source: string) {
-    const colored = color(source);
+    let colored: color;
+
+    try {
+        colored = color(source);
+    } catch {
+        try {
+            const hwbReg =
+                /^hwb\(\s*([+-]?\d{0,3}(?:\.\d+)?)(?:deg)?\s*,?\s*([+-]?[\d\.]+)%\s*,?\s*([+-]?[\d\.]+)%\s*(?:,?\s*([+-]?(?=\.\d|\d)(?:0|[1-9]\d*)?(?:\.\d*)?(?:[eE][+-]?\d+)?)\s*)?\)$/;
+
+            const matched = source.match(hwbReg);
+
+            if (!matched) return null;
+
+            const alpha = parseFloat(matched[4]);
+            const h = ((parseFloat(matched[1]) % 360) + 360) % 360;
+            const w = clamp(parseFloat(matched[2]), 0, 100);
+            const b = clamp(parseFloat(matched[3]), 0, 100);
+            const a = clamp(isNaN(alpha) ? 1 : alpha, 0, 1);
+
+            colored = color.hwb(h, w, b, a);
+        } catch {
+            return null;
+        }
+    }
 
     const rgbObject = colored.rgb().object();
 
@@ -57,15 +84,21 @@ async function parseColor(text: string, options: ParserOptions<any>) {
                                     node.sourceEndIndex
                                 );
 
-                                (node as unknown as parseValue.WordNode).value =
-                                    toRGB(source);
-                                (node as unknown as parseValue.WordNode).type =
-                                    "word";
+                                const rgb = toRGB(source);
+
+                                if (rgb) {
+                                    (
+                                        node as unknown as parseValue.WordNode
+                                    ).value = rgb;
+                                    (
+                                        node as unknown as parseValue.WordNode
+                                    ).type = "word";
+                                }
                             } catch {}
                         } else if (node.type === "word") {
-                            try {
-                                node.value = toRGB(node.value);
-                            } catch {}
+                            const rgb = toRGB(node.value);
+
+                            if (rgb) node.value = rgb;
                         }
                     })
                     .toString();

@@ -10,7 +10,7 @@
 div {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
     border-color: hsl(0, 0%, 100%);
-    background-color: hwb(0, 100%, 0%);
+    background-color: hwb(0 100% 0%);
     color: hsla(0, 0%, 0%, 0);
     flood-color: var(--test);
 }
