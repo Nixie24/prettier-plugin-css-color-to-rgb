@@ -107,6 +107,8 @@ async function parseColor(text: string, options: ParserOptions<any>) {
             return result.root.toString();
         });
 
+    options.originalText = parsed;
+
     return prettierPostcss.parsers.css.parse(parsed, options);
 }
 

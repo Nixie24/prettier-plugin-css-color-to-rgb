@@ -3,7 +3,7 @@
     "description": "Prettier plugin to convert CSS color names to RGB values",
     "type": "module",
     "main": "dist/index.js",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "files": [
         "dist/index.js"
     ],
